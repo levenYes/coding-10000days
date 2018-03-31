@@ -1,5 +1,5 @@
 /**
- * HasSelfPrivateNum
+ * 如果多个线程访问多个对象，则JVM会创建出多个锁。
  */
 
 public class HasSelfPrivateNum {
