@@ -20,7 +20,7 @@ public class NewInputOutput {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);//注册监听的事件
 
         while (true) {
-            Set selectedKeys = selector.selectedKeys();//去的所有key集合
+            Set selectedKeys = selector.selectedKeys();//取得所有key集合
             Iterator it = selectedKeys.iterator();
             while (it.hasNext()) {
                 SelectionKey key = (SelectionKey) it.next();
