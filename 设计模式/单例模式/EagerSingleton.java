@@ -66,7 +66,11 @@ public final class DoubleCheckedSingleton{
 /**
  * 使用内部类来做到延迟加载对象
  * 在初始化这个内部类的时候，JLS（Java Language Specification）会保证这个类的线程安全。
- * 这种写法的优雅自傲与，完全使用了Java虚拟机的机制进行同步保证，没有一个同步的关键字。
+ * 这种写法的优雅自然，完全使用了Java虚拟机的机制进行同步保证，没有一个同步的关键字。
+ *
+ * 因为在多线程环境下，jvm对一个类的初始化会做限制，
+ * 同一时间只会允许一个线程去初始化一个类，
+ * 这样就从虚拟机层面避免了大部分单例实现的问题
  */
 public class Singleton {
     private static class SingletonHolder {
@@ -77,4 +81,5 @@ public class Singleton {
         return SingletonHolder.instance;
     }
 }
+
 
