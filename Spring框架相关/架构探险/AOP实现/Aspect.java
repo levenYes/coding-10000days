@@ -202,6 +202,44 @@ public abstract class AspectProxy implements Proxy {
     }
 }
 
+/**
+ * ControllerAspect类
+ *
+ * 需要注意的是AspectProxy类中的doProxy方法，
+ * 我们从proxyChain参数中获取了目标类、目标方法与方法参数，
+ * 随后通过一个try...catch...finally代码块来实现调用框架，
+ * 从框架中抽象出一系列的"钩子方法"，
+ * 这些抽象方法可在AspectProxy的子类中有选择性地进行实现。
+ *
+ * 我们只需实现before与after方法，
+ * 就可以在目标方法执行前后添加其他需要执行的代码了。
+ */
+
+@Aspect(Controller.class)
+public class ControllerAspect extends AspectProxy {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAspect.class);
+
+    private long begin;
+
+    @Override
+    public void before(Class<?> cls, Method method, Object[] params) throws Throwable {
+        LOGGER.debug("---------- begin -----------");
+        LOGGER.debug(String.format("class: %s", cls.getName()));
+        LOGGER.debug(String.format("method: %s", method.getName()));
+        begin = System.currentTimeMillis();
+    }
+
+    @Override
+    public void after(Class<?> cls, Method method, Object[] params, Object result) throws Throwable {
+        LOGGER.debug(String.format("time: %dms", System.currentTimeMillis() - begin));
+        LOGGER.debug("---------- end -------------");
+    }
+}
+
+/**
+ * 加载AOP框架
+ */
+
 
 
 
